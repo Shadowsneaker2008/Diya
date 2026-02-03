@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Diya 💗</title>
+
+<style>
+  body {
+    margin: 0;
+    min-height: 200vh;
+    display: flex;
+    justify-content: center;
+    background: linear-gradient(135deg, #ffd6e8, #ffe9f3);
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+  }
+
+  .card {
+    background: white;
+    padding: 35px;
+    width: 330px;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    animation: pop 1.4s ease;
+    position: fixed;
+    top: 15vh;
+    z-index: 2;
+  }
+
+  h1 {
+    color: #ff6fa5;
+    margin-bottom: 8px;
+  }
+
+  p {
+    font-size: 15px;
+    min-height: 45px;
+  }
+
+  .heart-btn {
+    font-size: 28px;
+    cursor: pointer;
+    user-select: none;
+    margin: 10px 0;
+  }
+
+  button {
+    background: #ff6fa5;
+    color: white;
+    border: none;
+    padding: 12px 26px;
+    border-radius: 25px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 10px;
+    display: none;
+  }
+
+  .secret {
+    display: none;
+    margin-top: 15px;
+    font-size: 14px;
+    animation: fadeIn 1s ease;
+  }
+
+  .scroll-msg {
+    position: absolute;
+    top: 140vh;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+    opacity: 0;
+    transition: opacity 1s;
+  }
+
+  .final {
+    position: absolute;
+    top: 155vh;
+    width: 100%;
+    text-align: center;
+    font-size: 15px;
+    color: #444;
+    opacity: 0;
+    transition: opacity 1.2s;
+  }
+
+  @keyframes pop {
+    from {opacity:0; transform:scale(0.9);}
+    to {opacity:1; transform:scale(1);}
+  }
+
+  @keyframes fadeIn {
+    from {opacity:0; transform:translateY(10px);}
+    to {opacity:1; transform:translateY(0);}
+  }
+
+  .float {
+    position: fixed;
+    bottom: -10px;
+    font-size: 18px;
+    animation: rise 6s linear infinite;
+    opacity: 0.7;
+  }
+
+  @keyframes rise {
+    from {transform: translateY(0);}
+    to {transform: translateY(-110vh);}
+  }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h1>Hi Diya 💗</h1>
+
+  <p id="typing"></p>
+
+  <div class="heart-btn" onclick="tapHeart()">💗</div>
+
+  <button id="unlockBtn" onclick="unlockSecret()">okay… what’s this?</button>
+
+  <div id="secret1" class="secret">
+    You have a calm energy that people feel without you trying ✨
+  </div>
+
+  <div id="secret2" class="secret">
+    Some people quietly make days better.  
+    You’re one of them 💕
+  </div>
+
+  <div id="nightMsg" class="secret">
+    It’s night right now…  
+    somehow this message fits better 🌙
+  </div>
+</div>
+
+<div id="scrollMsg" class="scroll-msg">
+  you’re still here… scroll a little more ↓
+</div>
+
+<div id="finalMsg" class="final">
+  Diyaaa, you are one of the best people in my life.<br><br>
+  We met unintentionally, yet somehow you became my favourite person.<br><br>
+  I really hope our bond never breaks,<br>
+  and I’ll always be by your side 🤍
+</div>
+
+
+<script>
+  /* Typing */
+  const text = "This looks simple. But it wasn’t made casually.";
+  let i = 0;
+  function type() {
+    if (i < text.length) {
+      document.getElementById("typing").innerHTML += text.charAt(i);
+      i++;
+      setTimeout(type, 45);
+    }
+  }
+  type();
+
+  /* Heart unlock */
+  let taps = 0;
+  function tapHeart() {
+    taps++;
+    if (taps === 5) {
+      document.getElementById("unlockBtn").style.display = "inline-block";
+    }
+  }
+
+  function unlockSecret() {
+    document.getElementById("secret1").style.display = "block";
+    setTimeout(() => {
+      document.getElementById("secret2").style.display = "block";
+    }, 1500);
+
+    const hour = new Date().getHours();
+    if (hour >= 21 || hour <= 5) {
+      setTimeout(() => {
+        document.getElementById("nightMsg").style.display = "block";
+      }, 3000);
+    }
+  }
+
+  /* Scroll unlock */
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 600) {
+      document.getElementById("scrollMsg").style.opacity = 1;
+    }
+    if (window.scrollY > 900) {
+      document.getElementById("finalMsg").style.opacity = 1;
+    }
+  });
+
+  /* Floating hearts */
+  function floatHeart() {
+    const h = document.createElement("div");
+    h.className = "float";
+    h.innerHTML = "💗";
+    h.style.left = Math.random() * 100 + "vw";
+    h.style.animationDuration = (4 + Math.random() * 3) + "s";
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 7000);
+  }
+  setInterval(floatHeart, 800);
+</script>
+
+</body>
+</html>
