@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Diyaa<3 💗</title>
+<style>
+  body {
+
+
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: radial-gradient(circle at top, #ffe0ef, #ffb6d5);
+    overflow-x: hidden;
+    position: relative;
+    text-align: center;
+  }
+
+  .container {
+    max-width: 700px;
+    margin: auto;
+    text-align: center;
+    padding: 20px;
+    position: relative;
+    z-index: 2;
+  }
+
+  h1 {
+    font-size: 36px;
+    color: #ff4f8b;
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fadeIn 1.5s ease forwards;
+    animation-delay: 1s;
+  }
+
+  /* Buttons */
+  .buttons {
+    margin-top: 20px;
+    opacity: 0;
+    animation: fadeIn 1.2s ease forwards;
+    animation-delay: 3s;
+  }
+
+  button {
+    background: #ff6fa5;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 12px 28px;
+    margin: 8px;
+    font-size: 15px;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    transition: transform 0.25s;
+  }
+
+  button:hover { transform: scale(1.08); }
+
+  .message, #final {
+    margin-top: 15px;
+    font-size: 15px;
+    color: #444;
+    min-height: 50px;
+  }
+
+  /* Slideshow */
+  .slideshow {
+    position: relative;
+    height: 400px;
+    margin-bottom: 15px;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  .slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    background: black;
+    opacity: 0;
+  }
+
+  .slide.active {
+    opacity: 1;
+  }
+
+  /* Memory captions */
+  .memory {
+    background: rgba(255,255,255,0.8);
+    border-radius: 15px;
+    padding: 12px;
+    margin: 10px 0;
+    font-size: 14px;
+    color: #333;
+    opacity: 0;
+  }
+
+  /* Signature */
+  .signature {
+    margin-top: 25px;
+    font-size: 14px;
+    opacity: 0.7;
+  }
+
+  /* Animations */
+  @keyframes fadeIn { from {opacity:0; transform:translateY(15px);} to {opacity:1; transform:translateY(0);} }
+
+  /* Falling hearts */
+  .fall-heart {
+    position: absolute;
+    top: -20px;
+    font-size: 20px;
+    animation: fall 6s linear forwards;
+    opacity: 0.8;
+    pointer-events: none;
+  }
+  @keyframes fall { 0% {transform:translateY(0);opacity:0.9;} 100% {transform:translateY(110vh);opacity:0;} }
+</style>
+</head>
+<body>
+
+<!-- Music -->
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+<div class="container">
+  <h1>Hi Diyaaaa 💗</h1>
+
+  <!-- Photo Gallery / Slideshow -->
+  <div class="slideshow">
+    <img src="diyaaaa.jpeg" class="slide active">
+    <img src="diyaa.jpeg" class="slide">
+    <img src="diyaaa.jpeg" class="slide">
+  </div>
+
+  <!-- Secret Buttons -->
+  <div class="buttons">
+    <button onclick="showMessage()">Secret #1 🌸</button>
+    <button onclick="showMessage()">Secret #2 ✨</button>
+    <button onclick="showMessage()">Secret #3 💌</button>
+  </div>
+
+  <!-- Messages -->
+  <div id="msg" class="message"></div>
+  <div id="final"></div>
+
+  <!-- Memory Captions -->
+  <div class="memory">Remember the day you laughed so freely? That smile stays with me.</div>
+  <div class="memory">Your calm energy makes everything around feel lighter and happy.</div>
+  <div class="memory">Every little chat with you makes the day feel better than before.</div>
+  <div class="memory">Madam Nimginta Sundaravada hudugi iroke chance ye ella<3.</div>
+
+  <!-- Signature -->
+  <div class="signature">— always by ur side(Tejas) 💗</div>
+</div>
+
+<script>
+// Play music on first click anywhere
+const music = document.getElementById("bgMusic");
+document.body.addEventListener("click", () => { music.play(); }, {once:true});
+
+// Falling hearts
+function createFallingHeart() {
+  const heart = document.createElement("div");
+  heart.className = "fall-heart";
+  heart.innerHTML = "💗";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (16 + Math.random() * 12) + "px";
+  heart.style.animationDuration = (4 + Math.random() * 3) + "s";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 7000);
+}
+setInterval(createFallingHeart, 300);
+
+// Slideshow
+const slides = document.querySelectorAll(".slide");
+let currentSlide = 0;
+setInterval(() => {
+  slides[currentSlide].classList.remove("active");
+  currentSlide = (currentSlide+1) % slides.length;
+  slides[currentSlide].classList.add("active");
+}, 4000);
+
+// Typing Effect Messages
+const messages = [
+  "You have this really effortless kind of beauty. It’s calm and warm, making moments feel nicer.",
+  "What I like most is your nature. Genuine, kind, and easy to be around.",
+  "You’re the type of person who leaves a good feeling behind. Conversations feel lighter, smiles feel more real."
+];
+
+function typeMessage(element, text, callback) {
+  element.innerHTML = "";
+  let i = 0;
+  const interval = setInterval(() => {
+    element.innerHTML += text[i];
+    i++;
+    if(i >= text.length) { clearInterval(interval); if(callback) callback(); }
+  }, 35);
+}
+
+function showMessage() {
+  const msg = messages[Math.floor(Math.random()*messages.length)];
+  const box = document.getElementById("msg");
+  const final = document.getElementById("final");
+  typeMessage(box, msg, () => {
+    setTimeout(() => {
+      typeMessage(final, "You’ve quietly become one of my most favourite people. Thank you for coming into my life 🤍");
+    }, 800);
+  });
+}
+
+// Animate memory captions
+const memories = document.querySelectorAll(".memory");
+memories.forEach((m,i) => {
+  setTimeout(()=>{
+    m.style.opacity = 1; 
+    m.style.animation = "fadeIn 1s forwards"; 
+  }, 4000 + i*800);
+});
+</script>
+
+</body>
+</html>
